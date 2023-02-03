@@ -1,5 +1,5 @@
 # Datastone obfuscate
-Obfuscate a email or other strings to prevent spam-bots from sniffing it.
+Obfuscate an email or other strings to prevent spam-bots from sniffing it.
 
 ## Usage
 twig filter:
