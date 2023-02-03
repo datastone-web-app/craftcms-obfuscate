@@ -2,6 +2,7 @@
     "name": "datastone/craft-obfuscate",
     "description": "Datastone obfuscate",
     "type": "craft-plugin",
+    "version": "1.0.0",
     "keywords": ["email", "obfuscate", "datastone"],
     "license": "MIT",
     "authors": [
