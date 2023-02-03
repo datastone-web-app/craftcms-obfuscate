@@ -1,0 +1,28 @@
+{
+    "name": "datastone/craft-obfuscate",
+    "description": "Datastone obfuscate",
+    "type": "craft-plugin",
+    "keywords": ["email", "obfuscate", "datastone"],
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Datastone",
+        "homepage": "https://datastone.nl"
+      }
+    ],
+    "support": {
+      "email": "info@datastone.nl"
+    },
+    "require": {
+      "craftcms/cms": "^4.2.5"
+    },
+    "autoload": {
+      "psr-4": {
+        "datastone\\obfuscate\\": "src/"
+      }
+    },
+    "extra": {
+      "name": "Datastone obfuscate",
+      "handle": "datastone-obfuscate"
+    }
+  }
