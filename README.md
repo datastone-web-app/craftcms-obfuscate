@@ -1,12 +1,23 @@
 # Datastone obfuscate
 Obfuscate an email or other strings to prevent spam-bots from sniffing it.
 
+## Installation
+
+Install the plugin via the Craft CMS control panel or via the command line:
+
+   ```bash
+   composer require datastone/craft-obfuscate
+   ```
+   ```bash
+   ./craft plugin/install datastone-obfuscate
+   ```
+
 ## Usage
 twig filter:
 
 In the simplest form you can use
 ````twig
-{{ "email@exemple.com" | obfuscate }}
+{{ "email@example.com" | obfuscate }}
 ````
 
 # Roadmap
@@ -15,21 +26,21 @@ In the simplest form you can use
 - css and javascript tricks
 
 ---
-### More advance usage (which you probably wont need):
+### More advance usage:
 ````twig
 {{ string $str | [, obfuscate | obfuscateEmail | obfuscateMailTo] }}
 ````
 ````twig
 craft extension:
-{{ craft.dsObfuscate.obfuscate(string $str) }}
-{{ craft.dsObfuscate.email(string $email) }}
-{{ craft.dsObfuscate.mailto(string $email) }}
+{{ craft.obfuscator.obfuscate(string $str) }}
+{{ craft.obfuscator.email(string $email) }}
+{{ craft.obfuscator.mailto(string $email) }}
 ````
 
 obfuscateMailTo:
 ````twig
 {{ string $email | obfuscateMailTo([string $title [, $json ]]) }}
-{{ craft.dsObfuscate.mailto(string $email [, string $title [, $json ]]) }}
+{{ craft.obfuscator.mailto(string $email [, string $title [, $json ]]) }}
 ````
  example : 
 ````twig
@@ -42,6 +53,6 @@ output  :
 string concat: (notice the () for twig otherwise the parsing goes wrong!)
 ````twig
 {{ ('Some string to hide ' ~ foo.bar) | obfuscate }}
-{{ craft.dsObfuscate.obfuscate('Some string to hide ' ~ foo.bar) }}
+{{ craft.obfuscator.obfuscate('Some string to hide ' ~ foo.bar) }}
 ````
 

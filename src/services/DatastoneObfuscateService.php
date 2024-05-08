@@ -15,6 +15,7 @@ class DatastoneObfuscateService extends Component
     {
         // this makes sure the @ is always obfuscated.
         $email = str_replace('@', '&#64;', (string) $this->obfuscate($email));
+
         return Template::raw($email);
     }
 
@@ -25,26 +26,23 @@ class DatastoneObfuscateService extends Component
     {
         $safe = '';
 
-        foreach (str_split($value) as $letter)
+        foreach (mb_str_split($value) as $letter)
         {
-            if (ord($letter) > 128) return $letter;
+            if (ord($letter) > 128) {
+                $safe .= $letter;
+                continue;
+            }
 
             // To properly obfuscate the value, we will randomly convert each letter to
             // its entity or hexadecimal representation, keeping a bot from sniffing
             // the randomly obfuscated letters out of the string on the responses.
-            switch (rand(1, 3))
-            {
-                case 1:
-                    $safe .= '&#'.ord($letter).';'; break;
-
-                case 2:
-                    $safe .= '&#x'.dechex(ord($letter)).';'; break;
-
-                case 3:
-                    $safe .= $letter;
-            }
+            $safe .= match (mt_rand(1, 3)) {
+                1 => '&#'.ord($letter).';',
+                2 => '&#x'.dechex(ord($letter)).';',
+                3 => $letter,
+            };
         }
-
+    
         return Template::raw($safe);
     }
 
@@ -83,7 +81,7 @@ class DatastoneObfuscateService extends Component
             if (!is_null($element)) $html[] = $element;
         }
 
-        return count($html) > 0 ? ' '.implode(' ', $html) : '';
+        return count($html) > 0 ? ' ' . implode(' ', $html) : '';
     }
 
     /**

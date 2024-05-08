@@ -10,26 +10,27 @@ use yii\base\Event;
 
 class Plugin extends \craft\base\Plugin
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
-
-        $this->setComponents([
-            'obfuscate' => \datastone\obfuscate\services\DatastoneObfuscateService::class
-        ]);
 
         Event::on(
             CraftVariable::class,
             CraftVariable::EVENT_INIT,
-            function(Event $e) {
-                /** @var CraftVariable $variable */
-                $variable = $e->sender;
-                $variable->set('obfuscate', DatastoneObfuscateService::class);
-            }
+            fn (Event $e) => $e->sender->set('obfuscator', DatastoneObfuscateService::class)
         );
 
         if (Craft::$app->request->getIsSiteRequest()) {
-            Craft::$app->view->registerTwigExtension(new DatastoneObfuscateTwigExtension());
+            Craft::$app->view->registerTwigExtension(new DatastoneObfuscateTwigExtension($this->obfuscator));
         }
+    }
+    
+    public static function config(): array
+    {
+        return [
+            'components' => [
+                'obfuscator' => ['class' => DatastoneObfuscateService::class]
+            ],
+        ];
     }
 }
